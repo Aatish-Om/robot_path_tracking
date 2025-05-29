@@ -24,6 +24,10 @@ The robot is given a set of predefined waypoints to follow:
 WAYPOINTS = [(0, 0), (1, 0), (2, 2), (3, 0), (4, 2)]
 ```
 
+![path_comparison](https://github.com/user-attachments/assets/c923be6b-06c8-4d36-9c72-25540e7fc95b)
+
+
+
 These waypoints define a zigzag trajectory with sharp turns. If followed directly, the robot would experience jerky motion and potential instability, especially at high speeds or during tight maneuvers.
 
 To solve this, we apply **Cubic Spline Interpolation**:
