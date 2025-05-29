@@ -198,7 +198,6 @@ export TURTLEBOT3_MODEL=waffle
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
 
----
 
 #### 2. RViz Visualization
 
@@ -210,7 +209,6 @@ rviz2 -d ~/bot_ws/src/turtlebot3_path_tracking/config/path_viz.rviz
 
 Make sure this config displays topics like `/odom`, `/cmd_vel`, and optionally `/scan` for obstacle detection.
 
----
 
 
 #### 3. Launch Path Tracker Node
@@ -256,7 +254,6 @@ cd ~/bot_ws/src/turtlebot3_path_tracking
 pytest test
 ```
 
----
 
 #### 🧪 Test Case Summary
 
@@ -272,7 +269,7 @@ pytest test
 | 8 | `test_trajectory_generator.py` | `test_trajectory_time_increasing()` | Ensures trajectory timestamps are in strictly increasing order. |
 | 9 | `test_trajectory_generator.py` | `test_empty_waypoint_error()` | Checks that `ValueError` is raised for empty path input. |
 
----
+
 
 These tests ensure correct logic, edge-case handling, and prevent silent failures across all core components.
 
@@ -309,6 +306,7 @@ It works as follows:
 
 This module is designed for use with the current Pure Pursuit controller.
 
+---
 
 ## Real-World Deployment Strategy
 
