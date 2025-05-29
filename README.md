@@ -39,7 +39,7 @@ To solve this, we apply **Cubic Spline Interpolation**:
 ### 2. Trajectory Generation
 
 Once we have a smooth path, we generate a **time-parameterized trajectory**:
-- Assign velocity profiles (constant by default)
+- Assign velocity profiles (constant velocity)
 - Sample points along the path and assign timestamps
 - Used by the controller to follow the path with timing
 
