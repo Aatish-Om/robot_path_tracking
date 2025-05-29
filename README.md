@@ -285,8 +285,7 @@ These tests ensure correct logic, edge-case handling, and prevent silent failure
 
 In addition to trajectory tracking, the system includes a **reactive obstacle avoidance module** defined in `obstacle_avoidance.py`.
 
-![image](https://github.com/user-attachments/assets/1ed6e0c4-b4aa-457c-9f75-e622882b9e4b)
-
+![image](https://github.com/user-attachments/assets/f38c6acb-dc8e-42bd-9c27-6cfe815f7cca)
 
 It works as follows:
 
