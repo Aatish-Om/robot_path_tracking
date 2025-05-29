@@ -314,7 +314,7 @@ To extend this project to a real TurtleBot3 robot:
 - **Localization**: Replace simulated odometry with a real-time localization method such as **AMCL** using a pre-built map.
 - **Hardware Interfaces**: Ensure the robot publishes:
   - `/odom` using encoder-based or fused odometry
-  - `/scan` using a real LiDAR sensor (e.g., LDS-01)
+  - `/scan` using a real LiDAR sensor 
 - **Sensor Calibration**: Calibrate the IMU and LiDAR to reduce noise in pose estimates.
 - **Command Rate**: Run the controller at a higher frequency (e.g., 10–20 Hz) for smoother real-world control.
 - **Trajectory Tuning**: Tune linear and angular velocity constraints to suit battery voltage and friction.
