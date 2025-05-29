@@ -35,8 +35,6 @@ To solve this, we apply **Cubic Spline Interpolation**:
 - Fits smooth, continuous curves between waypoints
 - Produces a refined and smooth list of intermediate points for the robot to track
 
-📊 _Before and After Visualization_:
-
 
 ### 2. Trajectory Generation
 
@@ -189,6 +187,9 @@ bot_ws/
 
 ### Launch Instructions
 
+![image](https://github.com/user-attachments/assets/c79b2936-2637-4636-890a-251080c8d503)
+
+
 #### 1. Start Gazebo Simulation
 Launch an empty Gazebo world with the TurtleBot3 model:
 
@@ -199,23 +200,7 @@ ros2 launch turtlebot3_gazebo empty_world.launch.py
 
 ---
 
-#### 2. Launch Path Tracker Node
-
-Launch the path tracking controller node with either a normal (raw) path or a smoothed path.
-
-- For **normal (raw)** path tracking:
-```bash
-ros2 launch turtlebot3_path_tracking normal_path.launch.py
-```
-
-- For **smoothed** path tracking:
-```bash
-ros2 launch turtlebot3_path_tracking smoothed_path.launch.py
-```
-
----
-
-#### 3. RViz Visualization
+#### 2. RViz Visualization
 
 To visualize the robot, path, and trajectory in RViz:
 
@@ -226,6 +211,30 @@ rviz2 -d ~/bot_ws/src/turtlebot3_path_tracking/config/path_viz.rviz
 Make sure this config displays topics like `/odom`, `/cmd_vel`, and optionally `/scan` for obstacle detection.
 
 ---
+
+
+#### 3. Launch Path Tracker Node
+
+Launch the path tracking controller node with either a normal (raw) path or a smoothed path.
+
+- For **normal (raw)** path tracking:
+```bash
+ros2 launch turtlebot3_path_tracking normal_path.launch.py
+```
+
+![image](https://github.com/user-attachments/assets/9076c3c5-e3e7-441b-a054-91eecfa689bd)
+
+
+- For **smoothed** path tracking:
+```bash
+ros2 launch turtlebot3_path_tracking smoothed_path.launch.py
+```
+
+![image](https://github.com/user-attachments/assets/dcffedbd-1ce3-4fd0-afde-8d7b90065d68)
+
+
+---
+
 
 #### 4. Plotting Path Comparison
 
@@ -247,11 +256,29 @@ cd ~/bot_ws/src/turtlebot3_path_tracking
 pytest test
 ```
 
-Includes:
-- Path smoothing tests
-- Trajectory logic
-- Controller response
-- Error handling
+---
+
+#### 🧪 Test Case Summary
+
+| # | Test File | Test Name | Description |
+|--:|-----------|------------|-------------|
+| 1 | `test_controller.py` | `test_pure_pursuit_straight_line()` | Ensures robot drives straight with minimal turning when aligned with path. |
+| 2 | `test_controller.py` | `test_pure_pursuit_goal_reached()` | Verifies controller outputs zero velocities when goal is reached. |
+| 3 | `test_controller.py` | `test_pure_pursuit_turning()` | Confirms robot initiates turning when facing away from target. |
+| 4 | `test_path_smoother.py` | `test_smooth_zigzag_path()` | Checks that 100 smooth points are generated from zigzag input. |
+| 5 | `test_path_smoother.py` | `test_smooth_single_point()` | Ensures `ValueError` is raised when only one waypoint is given. |
+| 6 | `test_path_smoother.py` | `test_smooth_empty_path()` | Confirms `ValueError` on empty waypoint list input. |
+| 7 | `test_trajectory_generator.py` | `test_dense_trajectory_length()` | Validates correct number of points in densified trajectory. |
+| 8 | `test_trajectory_generator.py` | `test_trajectory_time_increasing()` | Ensures trajectory timestamps are in strictly increasing order. |
+| 9 | `test_trajectory_generator.py` | `test_empty_waypoint_error()` | Checks that `ValueError` is raised for empty path input. |
+
+---
+
+These tests ensure correct logic, edge-case handling, and prevent silent failures across all core components.
+
+
+![image](https://github.com/user-attachments/assets/fd8079e7-4586-4623-8bbb-c02c7e00165b)
+
 
 **All 9 test cases pass!**
 
@@ -260,6 +287,9 @@ Includes:
 ### Obstacle Avoidance
 
 In addition to trajectory tracking, the system includes a **reactive obstacle avoidance module** defined in `obstacle_avoidance.py`.
+
+![image](https://github.com/user-attachments/assets/1ed6e0c4-b4aa-457c-9f75-e622882b9e4b)
+
 
 It works as follows:
 
