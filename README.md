@@ -156,6 +156,55 @@ This controller is at the heart of the robot’s ability to follow either raw or
 
 ---
 
+## Complete Flowchart Summary
+
+```
+START
+  │
+  ├── Define WAYPOINTS [(x1, y1), ..., (xn, yn)]
+  ├── Smooth path using Cubic Splines
+  ├── Generate time-based TRAJECTORY (x, y, t)
+  │
+  ├── Initialize ROS2 Node (PathFollower)
+  │   ├── Subscribe to /odom and /scan
+  │   └── Publish to /cmd_vel
+  │
+  └─▶ LOOP (triggered on Odometry update)
+         │
+         ├── Get current robot pose (x, y, yaw)
+         ├── Get latest LaserScan ranges
+         │
+         ├── IF obstacle detected in front (within arc & threshold)
+         │     ├── Choose turn direction (left/right)
+         │     ├── Generate bypass waypoint (side + forward offset)
+         │     ├── Create temporary reroute path (with midpoints)
+         │     ├── Smooth reroute path using splines
+         │     ├── Generate trajectory for reroute path
+         │     ├── Enter avoidance mode
+         │     └── Follow reroute trajectory via Pure Pursuit
+         │
+         ├── ELSE (no obstacle or already avoiding)
+         │     └── Follow current trajectory via Pure Pursuit
+         │
+         ├── IF reroute goal reached (within distance threshold)
+         │     ├── Switch back to original trajectory
+         │     └── Exit avoidance mode
+         │
+         ├── Publish Twist (v, w) to /cmd_vel
+         │
+         ├── IF final goal is reached
+         │     └── Stop robot by publishing zero velocity
+         │
+         └── Repeat until goal is reached
+              
+  ↓
+END
+
+```
+
+---
+
+
 ## Project Features
 
 ### 📂 Folder Structure
